@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Test File</title>
+</head>
+ 
+<style >
+    body{
+		width:480px;
+		height:480px;	   
+	}
+	.container{}
+	.banner, .expanded, .textContent, .cover, .tShirt, .expandedLandscape, .textContentLand, .coverLand, .tShirtLand{
+		position : absolute;		
+	}
+	.expanded, expandedLandscape{
+		overflow:hidden;	
+	}
+	.cover{
+		top:45px;
+		left:-12px;
+	}
+	#cover3{
+	    left:130px;	
+	}
+	#cover2{
+	    left:74px;	
+	}	
+	.coversLand{		
+		position:relative;
+		left:73px;	
+		top:17px;
+	}
+	#cover3Land{
+		left:176px;
+	}
+	#cover2Land{
+		left:96px;
+	}	
+	.textContent{
+		top:335px;
+		left:10px;		
+	}
+	#text1{
+		padding-bottom:10px;
+		position:relative;
+		top:0px;	
+	}
+	#text2, #text2Land{
+		position:relative;		
+	}	
+	.textContentLand{
+		overflow:hidden;
+		top:254px;
+		left:10px;
+	}
+	#text1Land{
+		position:relative;
+	  	top:-10px;	
+	}	
+	.tShirt{
+		top:334px;
+		left:224px;	
+	}
+	#blueShirt, #blueShirtLand{position:relative; }
+	#greyShirt{
+		position:relative;
+		top:-60px;
+		left:25px;
+	}	
+	.tShirtLand{
+		overflow:hidden;
+		top:230px;
+		left:380px;	
+	}
+	#greyShirtLand{
+		position:relative;
+		top:-80px;
+		left:25px;
+	}	
+	
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://dl.dropboxusercontent.com/s/07ui50suh8tieg1/jquery.touchSwipe.min.js"></script>
+<script src="https://dl.dropboxusercontent.com/s/7vxi4qr74n3vqqa/main.js"></script>
+
+<script>
+
+	//window.orientation = "landscape";
+	window.orientation = 0;
+	var isShowing = false;
+	init();
+    function init(){			
+				$(document).ready(function(){
+				$(".expanded").hide();
+				$(".expandedLandscape").hide();
+				
+				$("#cover1").css("left", "-200px");
+				$("#cover2").css("left", "-200px");
+				$("#cover3").css("left", "-200px");
+				
+				$("#cover1Land").css("left", "-250px");
+				$("#cover2Land").css("left", "-250px");
+				$("#cover3Land").css("left", "-250px");
+				
+				$("#text1").css("top", "200px");
+				$("#text2").css("top", "200px");
+				$("#text1Land").css("top", "100px");
+				$("#text2Land").css("top", "100px");
+				
+				$("#blueShirt").css("left", "200px");
+				$("#greyShirt").css("left", "200px");
+				
+				$("#blueShirtLand").css("left", "100px");
+				$("#greyShirtLand").css("left", "100px");	
+			});		
+	}	
+
+	$(window).bind('orientationchange', function() {
+	   //alert("  window.orientation  " + window.orientation);
+	   if((window.orientation == 0 || window.orientation == 180 ) && isShowing){
+		   $(".expandedLandscape").hide(10);
+		   $(".expanded").show(10);
+		   $("#cover3").css('left', '130px');
+		   $("#cover2").css('left', '74px');
+		   $("#cover1").css('left', '-12px');
+		   $("#text1").css('top', '0px');
+		   $("#text2").css('top', '0px');
+		   $("#blueShirt").css('left', '0px');
+		   $("#greyShirt").css('left', '25px');		   
+	   }
+	   else if((window.orientation == 90 || window.orientation == -90 ) && isShowing){
+		   $(".expanded").hide(10);
+		   $(".expandedLandscape").show(10);
+		   $("#cover3Land").css('left', '176px');
+		   $("#cover2Land").css('left', '96px');
+		   $("#cover1Land").css('left', '0px');
+		   $("#text1Land").css('top', '-10px');
+		   $("#text2Land").css('top', '0px');
+		   $("#blueShirtLand").css('left', '0px');
+		   $("#greyShirtLand").css('left', '25px');			   
+	   }	   
+	});
+	
+	
+
+	$(document).ready(function(){		
+		  $(function() {      			  
+			  $(".banner").swipe( {
+				//Generic swipe handler for all directions
+				swipeDown:function(event, direction, distance, duration, fingerCount, fingerData) {				 
+				  //alert("    swipe direction  :: " + direction);
+				  
+				  init();
+					//alert(isShowing);
+					if(window.orientation == 180 || window.orientation == 0 ){
+						isShowing = true;
+						$(".expanded").css('width', '320px');	
+						$(".expanded").css('height', '480px');
+						$(".expanded").slideDown('slow', function(){				
+							$("#cover3").animate({left: '130px'}, function(){					
+								$("#cover2").animate({left: '74px'}, function(){							
+										$("#cover1").animate({left: '-12px'}, function(){									
+												$("#text1").animate({top: '0px'}, function(){
+													$("#text2").animate({top: '0px'}, function(){
+														$("#blueShirt").animate({left: '0px'}, function(){
+																$("#greyShirt").animate({left: '25px'});				
+															});
+														});
+													});															
+											});			
+									});							
+								});					
+							});			
+					
+					}
+					else if(window.orientation == -90 || window.orientation == 90 ){
+						isShowing = true;				
+						//alert(window.orientation);
+						$(".expandedLand").css('width', '480px');
+						$(".expandedLand").css('height', '320px');				
+						$(".expandedLandscape").slideDown('slow', function(){
+							$("#cover3Land").animate({left: '176px'}, function(){
+								$("#cover2Land").animate({left: '96px'}, function(){
+									$("#cover1Land").animate({left: '0px'}, function(){
+										$("#text1Land").animate({top: '-10px'}, function(){
+											$("#text2Land").animate({top: '0px'}, function(){
+												$("#blueShirtLand").animate({left: '0px'}, function(){
+													$("#greyShirtLand").animate({left: '25px'});
+												});
+											});
+										});
+									});
+								});						
+							});					
+						});   				
+		
+					}
+					
+					$(".banner").hide(100);	  
+				  
+				  
+				}, threshold:0
+			  });
+			});
+		
+		
+		
+		
+		$(function() {      			  
+			  $(".expanded").swipe( {
+				//Generic swipe handler for all directions
+				swipeUp:function(event, direction, distance, duration, fingerCount, fingerData) {
+					//alert("    swipe direction  :: " + direction);
+					$(".expanded").slideUp();
+					$(".banner").show(100);
+					isShowing = false;
+				}, threshold:0
+					  });
+					});
+			
+		
+		$(function() {      			  
+			 $(".expandedLandscape").swipe( {
+				//Generic swipe handler for all directions
+				swipeUp:function(event, direction, distance, duration, fingerCount, fingerData) {
+					//alert("    swipe direction  :: " + direction);	
+					$(".expandedLandscape").slideUp();
+					$(".banner").show(100);
+					isShowing = false;
+			}, threshold:0
+				  });
+				});
+		
+	});
+
+</script>
+
+<body>
+<div class="container">
+    <div class="banner">
+        <img src="https://dl.dropboxusercontent.com/s/16ipkro5kdyk3h5/320x50.jpg" alt="banner image"/>
+    </div>
+    
+    <div class="expanded">
+    
+    	<div class="tShirt">
+        	<img class="shirts" id="blueShirt" src="https://dl.dropboxusercontent.com/s/25j1cgp9xft74ym/hoodie1.png" alt="blue Shirt"/>
+            <img class="shirts" id="greyShirt" src="https://dl.dropboxusercontent.com/s/4x4yhcije59j8n3/hoodie2.png" alt="grey Shirt"/>
+        </div>
+    
+    	<div class="textContent">
+        	<img class="texts" id="text1" src="https://dl.dropboxusercontent.com/s/pcsi51peacx5vlz/knock-hoodies.png" alt="kront hoodie"/>
+            <img class="texts" id="text2" src="https://dl.dropboxusercontent.com/s/dgq1e6dz5ht7xar/boxing-news-logo.png" alt="boxing"/> 
+        </div>
+        
+        <div class="covers">
+            <img class="cover" id="cover1" src="https://dl.dropboxusercontent.com/s/7jj23tme1cy99b6/cover1-img.png" alt="cover1"/>
+            <img class="cover" id="cover2" src="https://dl.dropboxusercontent.com/s/e9852ai68rcbs8e/cover2-img.png" alt="cover2"/>
+            <img class="cover" id="cover3" src="https://dl.dropboxusercontent.com/s/yr632xnq1e5klwo/cover3-img.png" alt="cover3"/>
+        </div>
+    
+        <div>
+            <img src="https://dl.dropboxusercontent.com/s/fzzyejedc3ysvgk/320-bg.jpg" alt="expanded bg" width="320" height="480"/>
+        </div>
+    </div>
+    
+   
+ 
+    
+    <div class="expandedLandscape">
+    
+    	<div class="tShirtLand">
+        	<img class="shirtsLand" id="blueShirtLand" src="https://dl.dropboxusercontent.com/s/25j1cgp9xft74ym/hoodie1.png" alt="blue Shirt"/>
+            <img class="shirtsLand" id="greyShirtLand" src="https://dl.dropboxusercontent.com/s/4x4yhcije59j8n3/hoodie2.png" alt="grey Shirt"/>
+        </div>
+    
+    	<div class="textContentLand">
+        	<img class="textsLand" id="text1Land" src="https://dl.dropboxusercontent.com/s/u1gdq4d0qvk4kev/knock-hoodies-480.png" alt="kront hoodie"/>
+            <img class="textsLand" id="text2Land" src="https://dl.dropboxusercontent.com/s/h82syjlnhxzxbah/boxing-news-logo-480.png" alt="boxing"/> 
+        </div>
+        
+        <div class="coversLand">
+            <img class="coverLand" id="cover1Land" src="https://dl.dropboxusercontent.com/s/9i4q743573go24f/cover1-img-480.png" alt="cover1"/>
+            <img class="coverLand" id="cover2Land" src="https://dl.dropboxusercontent.com/s/czypfh9l5aov1h9/cover2-img-480.png" alt="cover2"/>
+            <img class="coverLand" id="cover3Land" src="https://dl.dropboxusercontent.com/s/ocdjtjthey3iuww/cover3-img-480.png" alt="cover3"/>
+        </div>
+    
+        <div>
+            <img src="https://dl.dropboxusercontent.com/s/jn8o2kzvm1o1j4y/480-bg.jpg?dl=0" alt="expanded bg" width="480" height="320"/>
+        </div>
+    </div>
+    
+    
+</div>
+</body>
+</html>
+
